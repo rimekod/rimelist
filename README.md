@@ -1,0 +1,2 @@
+# rimelist
+Simple wordlist generator
