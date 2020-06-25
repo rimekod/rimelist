@@ -1,2 +1,4 @@
 # rimelist
-## Simple wordlist generator
+I don't need write readme file beacue this is too easy
+
+
