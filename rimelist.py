@@ -19,6 +19,10 @@ print(bcolors.OKBLUE + """
 inp = str(input(bcolors.BOLD + "Enter the string keywords (Separate with space) -> "))
 inp2 = str(input(bcolors.BOLD + "Enter the numeric keywords (Separate with space) -> "))
 file_content = str(input(bcolors.HEADER + "Delete content and add new passwords to file? (w), Add passwords to current file content? (a) [w/a] "))
+
+rimelist = ["123456","1234567","12345678","123456789","1234567890","mypassword","password"]
+appends = ["#","!","?","00","01","02","03","04","05","06","07","08","09","09","10","11","123","1234","12345","321","4321"]
+
 for string in inp.split(" "):
     if string.isalpha() == False:
         print(bcolors.FAIL + 'Please enter only alpha chars!')
@@ -37,6 +41,7 @@ words = inp2.split(" ") + inp.split(" ")
 WL_alpha = []
 WL_num = []
 wordlist = []
+WL_append = []
 
 for pureword in words:
     combines = []
@@ -67,7 +72,11 @@ for wrd in words:
         combines.append(words[y] + wrd)
         y+=1
 
-wordlist = WL_alpha + WL_num + combines
+for alphaword in WL_alpha:
+    for append in appends:
+        WL_append.append(alphaword + append)
+
+wordlist = WL_alpha + WL_num + combines + rimelist + WL_append
 
 str_list = "\n".join(wordlist)
 file = open('passwords.txt', file_content)
