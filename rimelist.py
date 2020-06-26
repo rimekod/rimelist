@@ -42,14 +42,14 @@ WL_alpha = []
 WL_num = []
 wordlist = []
 WL_append = []
+combines = []
+combine_words = []
+numbers_with_letter = []
 
 for pureword in words:
-    combines = []
     word = pureword.lower()
     if word.isalpha():
         WL_alpha.append(word)
-        WL_alpha.append(word.upper())
-
         WL_alpha.append(word[::-1])
         # upper all letters
         split_word = list(word)
@@ -65,23 +65,48 @@ for pureword in words:
                 x+=1
     elif word.isnumeric():
         WL_num.append(word)
+        
 
+# combine words from same array
 for wrd in words:
     y = 0
     while y < len(words):
         combines.append(words[y] + wrd)
         y+=1
 
+# Append chars to words
 for alphaword in WL_alpha:
     for append in appends:
         WL_append.append(alphaword + append)
 
-wordlist = WL_alpha + WL_num + combines + rimelist + WL_append
+# combine words with char
+for wrd in words:
+    z = 0
+    while z < len(words):
+        combine_words.append(words[z] + "_" + wrd)
+        combine_words.append(words[z] + "-" + wrd)
+        combine_words.append(words[z] + "." + wrd)
+        combine_words.append(words[z] + "+" + wrd)
+        combine_words.append(words[z] + "*" + wrd)
+        combine_words.append(words[z] + "0" + wrd)
+        combine_words.append(words[z] + "1" + wrd)
+        z+=1
+
+# append first letter of word to end of numbers
+for wrd in words:
+    if wrd.isalpha():
+        t = 0
+        while t < len(WL_num):
+            numbers_with_letter.append(WL_num[t] + WL_num[t] + list(wrd)[0])
+            t+=1
+
+#combine
+wordlist = WL_alpha + WL_num + combines + rimelist + WL_append + combine_words + numbers_with_letter
 
 str_list = "\n".join(wordlist)
 file = open('passwords.txt', file_content)
 file.write(str_list)
 file.close()
 
-print(bcolors.OKBLUE + str(len(wordlist)) + " pass found and written to the passwords.txt file.")
+print(bcolors.OKBLUE + '{0:,}'.format(len(wordlist)) + " password created and written to the passwords.txt file.")
 print("")
